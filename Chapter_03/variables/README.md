@@ -24,3 +24,4 @@ const THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3;
 - 몇가지 전환 작업을 한 이후 다시 immutable하게 된다
 - 타입의 변수를 shadowing 하는 개념이기 때문에, 당연히 타입도 무관함
 
+
