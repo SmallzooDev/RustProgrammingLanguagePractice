@@ -444,3 +444,7 @@ fn main() {
 For more information about this error, try `rustc --explain E0502`.
 error: could not compile `refScopeTest` due to previous error
 ```
+### Dangilng References 
+
+- 사실상 있을 수 없음
+- 실제로 허상 포인터를 반환하려고 하면 컴파일 에러가 잡힘
