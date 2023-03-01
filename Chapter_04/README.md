@@ -1,7 +1,7 @@
 # Chapter 4 Ownership
 
 ## 느낀점
-1. 발상의 전환이 곧곧에 보인다. 특히 디폴트로 된 부분이 그렇다 
+- 발상의 전환이 곧곧에 보인다. 특히 디폴트로 된 부분이 그렇다 
 - 함수 등에서 기본적으로 오너쉽을 넘기고 필요한경우 레퍼런스를 넘기고 필요한경우 변경 권한을 가진 레퍼런스를 넘긴다. 
 - 뭔가 mut/immut 때처럼 디폴트가 반대로 된 느낌이라, 반대로 쓰면서 귀찮을 수도 있지만 내가 뭘 하고 있는지 인지시켜주는 느낌이다.
 - 이러한 반대의 로직은 오너쉽이라는 개념을 인지시키고 활용하는걸 디자인적으로 잘 해결 한 것 같다
@@ -448,3 +448,46 @@ error: could not compile `refScopeTest` due to previous error
 
 - 사실상 있을 수 없음
 - 실제로 허상 포인터를 반환하려고 하면 컴파일 에러가 잡힘
+
+### The Slice Type
+
+string과 &str의 차이점만 알아보면 다 따라오는 내용일 것 같다.
+
+string : 동적 힙 문자열 타입,
+str : 불변 utf-8 바이트 동적 길이 문자열
+
+```
+fn first_word(s: &str) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    &s[..]
+}
+
+fn main() {
+    let my_string = String::from("hello world");
+
+    // `first_word` works on slices of `String`s, whether partial or whole
+    let word = first_word(&my_string[0..6]);
+    let word = first_word(&my_string[..]);
+    // `first_word` also works on references to `String`s, which are equivalent
+    // to whole slices of `String`s
+    let word = first_word(&my_string);
+
+    let my_string_literal = "hello world";
+
+    // `first_word` works on slices of string literals, whether partial or whole
+    let word = first_word(&my_string_literal[0..6]);
+    let word = first_word(&my_string_literal[..]);
+
+    // Because string literals *are* string slices already,
+    // this works too, without the slice syntax!
+    let word = first_word(my_string_literal);
+}
+
+```
