@@ -208,6 +208,8 @@ fn main() {
 }
 
 ```
+
+```
 fn main() {
     let a = [10, 20, 30, 40, 50];
     let mut index = 0;
@@ -231,3 +233,14 @@ fn main() {
 }
 
 ```
+
+```
+fn main() {
+    for number in (1..4).rev() {
+        println!("{number}!");
+    }
+    println!("LIFTOFF!!!");
+}
+
+```
+이런 식으로 많이 쓴다고 함
