@@ -54,3 +54,24 @@
 
 6. The use keyword : 매번 crate::garden::vegetables::Asparagus 와 같은 키워드를 사용할 필요 없이, use ~ 와 같이 사용할 수 있다.
 
+모듈은 구현을 숨겨서 자식 모듈들은 디폴트로 private이다.
+심지어 모듈을 pub으로 해줘도, 부모 모듈이 자식모듈을 언급할 수 있게 할 뿐, 내부 코드에 대한 접근까지 허용한것은 아니다.
+
+```
+fn deliver_order() {}
+
+mod back_of_house {
+    fn fix_incorrect_order() {
+        cook_order();
+        super::deliver_order();
+    }
+
+    fn cook_order() {}
+}
+
+```
+이런것도 가능함.
+
+## Making Structs and Enum Public
+
+구조체랑 이넘을 퍼블릭하게 만들 수 있기는 하지만, 또 그 내부 필드들도 퍼블릭이 되는건 아님.
